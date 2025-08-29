@@ -1,12 +1,16 @@
 export interface CineDTO {
-    id: number;
-    nombre: string;
-    latitud: number;
-    longitud: number;
+  id: number;
+  nombre: string;
+  latitud: number;
+  longitud: number;
 }
 
 export interface CineCreacionDTO {
-    nombre: string;
-    latitud: number;
-    longitud: number;
+  nombre: string;
+  ubicacion: ubicacionDTO;
+}
+
+export interface ubicacionDTO {
+  latitud: number;
+  longitud: number;
 }

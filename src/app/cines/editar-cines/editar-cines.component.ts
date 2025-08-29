@@ -1,20 +1,21 @@
 import { Component, Input, numberAttribute } from '@angular/core';
-import { CineCreacionDTO, CineDTO } from '../cines';
 import { FormularioCinesComponent } from "../formulario-cines/formulario-cines.component";
+import { SERVICIO_CURD_TOKEN } from '../../compartidos/proveedores/proveedores';
+import { CinesService } from '../cines.service';
+import { EditarEntidadComponent } from "../../compartidos/componentes/editar-entidad/editar-entidad.component";
 
 @Component({
   selector: 'app-editar-cines',
-  imports: [FormularioCinesComponent],
+  imports: [EditarEntidadComponent],
   templateUrl: './editar-cines.component.html',
-  styleUrl: './editar-cines.component.css'
+  styleUrl: './editar-cines.component.css',
+  providers: [{
+    provide: SERVICIO_CURD_TOKEN, useClass: CinesService
+  }]
 })
 export class EditarCinesComponent {
   @Input({ transform: numberAttribute }) id!: number;
 
-  cine: CineDTO = { id: 1, nombre: 'Acropolis', latitud: 19.408183935275694, longitud: -99.11282045634084 };
-
-  guardarCambios(cine: CineCreacionDTO) {
-    console.log('actualizando cine', cine);
-  }
+  formularioCines = FormularioCinesComponent;
 }
 

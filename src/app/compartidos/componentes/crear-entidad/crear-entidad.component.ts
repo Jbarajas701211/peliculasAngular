@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, ComponentRef, inject, Input, ViewChild, viewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, inject, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { SERVICIO_CURD_TOKEN } from '../../proveedores/proveedores';
 import { IServicioCRUD } from '../../interfaces/IServicioCRUD';
 import { Router } from '@angular/router';
 import { extraerErrores } from '../../funciones/exetraerErrores';
 import { MostrarErroresComponent } from "../mostrar-errores/mostrar-errores.component";
-import { CdkDragPlaceholder } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-crear-entidad',
-  imports: [MostrarErroresComponent, CdkDragPlaceholder],
+  imports: [MostrarErroresComponent],
   templateUrl: './crear-entidad.component.html',
   styleUrl: './crear-entidad.component.css'
 })
@@ -43,7 +42,7 @@ export class CrearEntidadComponent<TDTO, TCreacionDTO> implements AfterViewInit 
     this.servicioCRUD.crear(entidad).subscribe(
       {
         next: () => {
-          this.router.navigate(['/generos']);
+          this.router.navigate([this.rutaIndice]);
         },
         error: err => {
           const errores = extraerErrores(err);

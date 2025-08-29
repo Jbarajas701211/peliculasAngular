@@ -1,3 +1,4 @@
+import { ubicacionDTO } from './../cines';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +19,7 @@ export class FormularioCinesComponent implements OnInit {
   ngOnInit(): void {
     if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
-      this.coordenadasIniciales.push({ latitud: this.modelo.latitud, longitud: this.modelo.longitud });
+      this.coordenadasIniciales.push({ latitud: this.modelo.ubicacion.latitud, longitud: this.modelo.ubicacion.longitud });
     }
   }
   @Input()
@@ -55,7 +56,18 @@ export class FormularioCinesComponent implements OnInit {
       return;
     }
 
-    const cine = this.form.value as CineCreacionDTO;
+    const { nombre, latitud, longitud } = this.form.value;
+
+    const cine: CineCreacionDTO = {
+      nombre: nombre!,
+      ubicacion: {
+        latitud: latitud!,
+        longitud: longitud!
+      }
+    };
+
+    //const cine = this.form.value as CineCreacionDTO;
+    console.log('Valor de cine:', cine);
     this.posteoFormulario.emit(cine);
   }
 
